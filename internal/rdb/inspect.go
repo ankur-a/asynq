@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/redis/go-redis/v9"
 	"github.com/hibiken/asynq/internal/base"
 	"github.com/hibiken/asynq/internal/errors"
+	"github.com/redis/go-redis/v9"
 	"github.com/spf13/cast"
 )
 
@@ -230,7 +230,7 @@ func (r *RDB) CurrentStats(qname string) (*Stats, error) {
 	stats.Size = size
 	memusg, err := r.memoryUsage(qname)
 	if err != nil {
-		return nil, errors.E(op, errors.CanonicalCode(err), err)
+		memusg = -1
 	}
 	stats.MemoryUsage = memusg
 	return stats, nil
